@@ -14,33 +14,32 @@ import re
 
 
 # Define the axes
-fig, ax = plt.subplots(1, 1, figsize=(14, 6))
-ax2 = fig.add_axes([0.93, 0.1, 0.02, 0.8])
-ax.set_xlim(0,60)
-ax.set_ylim(-15,15)
-ax.set_xlabel("Distance [$m$]",size=12)
-ax.set_ylabel("Elevation [$m$]",size=12)
-ax2.set_ylabel('Resistivity [$\Omega m$]',size=12)
-ax2.set_title('$\log_{10}$',size=12)
+fig_size = (14, 6)
+axes2 = [0.93, 0.1, 0.02, 0.8] # palete
+xmin = 0
+xmax = 60
+ymin = -15
+ymax = 15
+text_size = 12
+
 
 
 plt.rc('text', usetex=True)
 plt.rc('font', family='serif')
 
 # Define the colormap
-number_of_color = 2**3
+number_of_color = 2**3 ## not being used. I need to understand better how control the number of colors in cmap & palete
 cmap = plt.cm.gist_earth  # define the colormap
 #cmaplist = [cmap(i) for i in np.linspace(0,cmap.N+1,number_of_color)]
 cmaplist = [cmap(i) for i in range(cmap.N)]
 #cmaplist[0] = (.5, .5, .5, 1.0)
 cmap = mpl.colors.LinearSegmentedColormap.from_list('Custom cmap', cmaplist, cmap.N)
 
-print(cmap.N/number_of_color)
-
 # Working with directores and files
 path_d = "../Example_files/"
-ref = path_d + "invdir/ref/f001_res.vtk" 
-copyfile(ref,path_d + "invdir/" + "f000_res.vtk") 
+if os.path.exists(path_d + "invdir/ref"):
+    ref = path_d + "invdir/ref/f001_res.vtk" 
+    copyfile(ref,path_d + "invdir/" + "f000_res.vtk") 
 files = [f for f in glob.glob(path_d + "invdir/f???_res.vtk")]
 files.sort()
 data = [d for d in glob.glob(path_d + "data/*.tx0")]
@@ -56,7 +55,6 @@ pngs = [p for p in glob.glob(path_d + "pngs/*.png")]
 mm = np.zeros(2)
 mm[0] = 10
 for l in files:
-    print(l)
     with open(l,'r') as gh:
         a = ' '
         while 'Resistivity(log10)' not in a:
@@ -72,12 +70,17 @@ gh.close()
 # palete color
 bounds = np.linspace(mm[0], mm[1], cmap.N)
 norm = mpl.colors.BoundaryNorm(bounds, cmap.N)
-cb = mpl.colorbar.ColorbarBase(ax2, cmap=cmap, norm=norm, spacing='proportional', ticks=[np.linspace(np.around(mm[0]),np.around(mm[1]),5)], boundaries=bounds)
 
 for w,f in enumerate(files):
-    print(data[w])
     if(str(f) not in str(pngs)):
-        print("Working on", f)
+        print("Working on " + f)
+        
+        
+        fig, ax = plt.subplots(1, 1, figsize = fig_size)
+        ax.set_xlim(xmin,xmax)
+        ax.set_ylim(ymin,ymax)
+        ax.set_xlabel("Distance [$m$]",size=text_size)
+        ax.set_ylabel("Elevation [$m$]",size=text_size)
        
         with open(f,'r') as fh:
             a = ' '
@@ -96,7 +99,6 @@ for w,f in enumerate(files):
                     Nodal.append(line.split())
                 elif (i == nnodal):
                     n = line.split()
-                    print(n[1])
                 elif (i < int(n[1])+nnodal+1):
                     Elem.append(line.split())
                 elif(i < int(n[1])+nnodal+7):
@@ -147,9 +149,18 @@ for w,f in enumerate(files):
        
             patch = patches.PathPatch(path, facecolor=plotC, edgecolor=None, lw=0.2)
             ax.add_patch(patch)
+
+        ax2 = fig.add_axes(axes2)
+        ax2.set_ylabel('Resistivity [$\Omega m$]',size=text_size)
+        ax2.set_title('$\log_{10}$',size=text_size)
+        cb = mpl.colorbar.ColorbarBase(ax2, cmap=cmap, norm=norm, spacing='proportional', ticks=[np.linspace(np.around(mm[0]),np.around(mm[1]),5)], boundaries=bounds)
        
         fname = path_d + 'pngs/' + re.sub(path_d,' ',data[w])[6:-3] + 'png'
-        ax.set_title(re.sub(path_d,' ',fname)[6:-4],fontsize=16, color='gray')
+        title = re.sub(path_d,' ',fname)[6:-4]
+        ax.set_title(title[5:7] + '/' + title[8:10] + '/' + title[0:4],fontsize=16, color='gray')
         plt.savefig(fname, dpi=None, facecolor='w', edgecolor='w', orientation='portrait', papertype=None, format=None, transparent=False, bbox_inches=None, pad_inches=0.1, frameon=None, metadata=None)
 
-plt.close(fig)
+        plt.close(fig)
+        plt.clf()
+        plt.cla()
+print("\n\nImages saved in " + path_d + 'pngs/')
