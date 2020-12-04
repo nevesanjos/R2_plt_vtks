@@ -1,6 +1,6 @@
 My beautiful survey
 
-1	3	2	0	1
+1	3	3	0	1
 
 1  << scale for triangular mesh
 
@@ -13,11 +13,11 @@ res0.dat
 
 1	10	2	1	<< tolerance, max_iterations, error_mod, alpha_aniso
 
-0.01	0.02	-10000000000.0	10000000000.0	<<  a_wgt, b_wgt, rho_min, rho_max
+0	0	-10000000000.0	10000000000.0	<<  a_wgt, b_wgt, rho_min, rho_max
 
 0	<< num_poly
 
-64	<< num_electrodes
+56	<< num_electrodes
 1	2
 2	3
 3	4
@@ -74,12 +74,4 @@ res0.dat
 54	55
 55	56
 56	57
-57	58
-58	59
-59	60
-60	61
-61	62
-62	63
-63	64
-64	65
 

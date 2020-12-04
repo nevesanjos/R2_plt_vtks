@@ -1,8 +1,8 @@
 
 
- >> R  2    R e s i s t i v i t y   I n v e r s i o n   v3.3 <<
+ >> R  2    R e s i s t i v i t y   I n v e r s i o n   v4.02 <<
 
- >> D a t e : 17 - 02 - 2020
+ >> D a t e : 24 - 10 - 2020
  >> My beautiful survey                                                             
  >> I n v e r s e   S o l u t i o n   S e l e c t e d <<
  >> Reading start resistivity from res0.dat                      
@@ -11,59 +11,85 @@
  >> L o g - D a t a   I n v e r s i o n <<
  >> N o r m a l   R e g u l a r i s a t i o n <<
  >> D a t a   w e i g h t s   w i l l   b e  m o d i f i e d <<
+ >> D a t a   w e i g h t   t o   b e   r e a d   f r o m   d a t a   f i l e <<
 
 
  Processing dataset   1
 
 
- Measurements read:   647     Measurements rejected:     0
-   Geometric mean of apparent resistivities:  0.55572E+01
+ Measurements read:   307     Measurements rejected:     0
+   Geometric mean of apparent resistivities:  0.23025E+04
 
- >> Total Memory required is:          1.084 Gb
+ >> Total Memory required is:          0.595 Gb
 
    Iteration   1
-     Initial RMS Misfit:       117.55     Number of data ignored:     0
-     Alpha:    122.837   RMS Misfit:       13.51
-     Alpha:     57.016   RMS Misfit:       12.66
-     Alpha:     26.464   RMS Misfit:       13.75
+     Initial RMS Misfit:     32701.66       Number of data ignored:     0
+     Alpha:    63500131.373   RMS Misfit:      895.54  Roughness:        3.898
+     Alpha:    29474150.071   RMS Misfit:      685.25  Roughness:        6.254
+     Alpha:    13680688.585   RMS Misfit:      505.90  Roughness:        9.477
+     Alpha:     6350013.137   RMS Misfit:      370.35  Roughness:       13.459
+     Alpha:     2947415.007   RMS Misfit:      290.69  Roughness:       19.337
+     Alpha:     1368068.859   RMS Misfit:      260.92  Roughness:       24.612
+     Alpha:      635001.314   RMS Misfit:      267.73  Roughness:       32.075
      Step length set to   1.00000
-     Final RMS Misfit:       12.66
+     Final RMS Misfit:      260.92
      Updated data weights
 
    Iteration   2
-     Initial RMS Misfit:        10.31     Number of data ignored:     0
-     Alpha:     36.964   RMS Misfit:       17.32
-     Alpha:     17.157   RMS Misfit:       18.33
-     Step length set to   0.50000
-     Final RMS Misfit:        6.00
+     Initial RMS Misfit:       147.13       Number of data ignored:     0
+     Alpha:      882529.981   RMS Misfit:      107.83  Roughness:       21.172
+     Alpha:      409634.131   RMS Misfit:       75.45  Roughness:       24.119
+     Alpha:      190135.321   RMS Misfit:       57.12  Roughness:       27.029
+     Alpha:       88252.998   RMS Misfit:       50.13  Roughness:       30.211
+     Alpha:       40963.413   RMS Misfit:       54.00  Roughness:       33.920
+     Step length set to   1.00000
+     Final RMS Misfit:       50.13
      Updated data weights
 
    Iteration   3
-     Initial RMS Misfit:         4.78     Number of data ignored:     0
-     Alpha:     22.000   RMS Misfit:        2.72
-     Alpha:     10.211   RMS Misfit:        2.64
-     Alpha:      4.740   RMS Misfit:        2.71
+     Initial RMS Misfit:        35.94       Number of data ignored:     0
+     Alpha:       52978.920   RMS Misfit:       30.33  Roughness:       30.150
+     Alpha:       24590.636   RMS Misfit:       22.02  Roughness:       33.796
+     Alpha:       11413.962   RMS Misfit:       17.56  Roughness:       38.167
+     Alpha:        5297.892   RMS Misfit:       20.35  Roughness:       43.043
      Step length set to   1.00000
-     Final RMS Misfit:        2.64
+     Final RMS Misfit:       17.56
      Updated data weights
 
    Iteration   4
-     Initial RMS Misfit:         1.91     Number of data ignored:     0
-     Alpha:      5.488   RMS Misfit:        1.88
-     Alpha:      2.547   RMS Misfit:        1.69
-     Alpha:      1.182   RMS Misfit:        1.60
-     Alpha:      0.549   RMS Misfit:        1.86
+     Initial RMS Misfit:        12.77       Number of data ignored:     0
+     Alpha:        6499.477   RMS Misfit:       11.37  Roughness:       38.167
+     Alpha:        3016.790   RMS Misfit:        8.10  Roughness:       42.553
+     Alpha:        1400.270   RMS Misfit:        7.68  Roughness:       47.415
+     Alpha:         649.948   RMS Misfit:       12.34  Roughness:       52.717
      Step length set to   1.00000
-     Final RMS Misfit:        1.60
+     Final RMS Misfit:        7.68
      Updated data weights
 
    Iteration   5
-     Initial RMS Misfit:         1.03     Number of data ignored:     0
-     Alpha:      0.593   RMS Misfit:        1.04
-     Alpha:      0.275   RMS Misfit:        1.28
-     Step length set to   0.50000
-     Final RMS Misfit:        0.84
-     Step length set to   0.03756
+     Initial RMS Misfit:         5.60       Number of data ignored:     0
+     Alpha:         764.466   RMS Misfit:        4.01  Roughness:       48.514
+     Alpha:         354.834   RMS Misfit:        2.97  Roughness:       53.436
+     Alpha:         164.699   RMS Misfit:        4.31  Roughness:       58.675
+     Step length set to   1.00000
+     Final RMS Misfit:        2.97
+     Updated data weights
+
+   Iteration   6
+     Initial RMS Misfit:         2.28       Number of data ignored:     0
+     Alpha:         185.040   RMS Misfit:        1.89  Roughness:       53.985
+     Alpha:          85.888   RMS Misfit:        1.51  Roughness:       58.369
+     Alpha:          39.866   RMS Misfit:        3.03  Roughness:       63.047
+     Step length set to   1.00000
+     Final RMS Misfit:        1.51
+     Updated data weights
+
+   Iteration   7
+     Initial RMS Misfit:         1.19       Number of data ignored:     0
+     Alpha:          43.320   RMS Misfit:        0.91  Roughness:       59.280
+     Step length set to   1.00000
+     Final RMS Misfit:        0.91
+     Step length set to   0.52500
      Final RMS Misfit:        1.00
 
  Solution converged - Outputing results to file
@@ -79,22 +105,22 @@
 
                      Timing Summary
                      ==============
-     Total time taken:                                66. s
-     Percent time taken forming element equations:    0.1 %
-     Percent time taken solving forward  equations:   6.4 %
-     Percent time taken forming Jacobian:             1.6 %
-     Percent time taken solving inverse equations:   77.0 %
+     Total time taken:                               189. s
+     Percent time taken forming element equations:    0.3 %
+     Percent time taken solving forward  equations:  20.9 %
+     Percent time taken forming Jacobian:             0.2 %
+     Percent time taken solving inverse equations:   75.5 %
      Percent time taken calculating res. matrix:      0.0 %
 
                      Timing Details
                      ==============
-     Number of calls to form element equations:        23
+     Number of calls to form element equations:       432
      Average time taken in call:                      0.0 s
-     Number of calls to solve forward equations:     1472
+     Number of calls to solve forward equations:    24192
      Average time taken in call:                      0.0 s
-     Number of calls to form Jacobian:                  5
-     Average time taken in call:                      0.2 s
-     Number of calls to solve inverse equations:       14
-     Average time taken in call:                      3.6 s
-     Number of calls to calculate res. matrix:          0
+     Number of calls to form Jacobian:                  7
+     Average time taken in call:                      0.1 s
+     Number of calls to solve inverse equations:       27
+     Average time taken in call:                      5.3 s
+     Number of calls to calculate res. matrix:          1
      Average time taken in call:                      0.0 s

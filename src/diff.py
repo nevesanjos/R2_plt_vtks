@@ -19,22 +19,19 @@ from shutil import copyfile
 import re
 
 
-# # Working with directores and files
-# ## Inside the directore must have the invdir, and data folders. If there is no a pngs folder, the code create it for you.
-
-# In[16]:
-
-
-
-#path_d = "../Example_files/"
-path_d = "/home/felipe/tmp/AZ/FEB_MAR_2020/data/Sg/test/"
+path_d = "../../"
 if os.path.exists(path_d + "invdir/ref"):
     ref = path_d + "invdir/ref/f001_res.vtk" 
     copyfile(ref,path_d + "invdir/" + "f000_res.vtk") 
 files = [f for f in glob.glob(path_d + "invdir/f???_res.vtk")]
 files.sort()
-data = [d for d in glob.glob(path_d + "data/*.stg")]
+data = [d for d in glob.glob(path_d + "data/*.Data")]
+#data = [d for d in glob.glob(path_d + "data/*.stg")]
 data.sort()
+
+print(files)
+print(data)
+print('oi')
 
 if not os.path.exists(path_d + "pngs/dif"):
         os.makedirs(path_d + "pngs/dif")
@@ -70,8 +67,11 @@ plt.rc('font', family='serif')
 mm = np.zeros(2)
 mm[0] = 10000
 ref={}
-diff=[]
+#diff=[]
+dd =[]
 for w,f in enumerate(files):
+    print(f)
+    diff = []
     if(str(f) not in str(pngs)):
         with open(f,'r') as fh:
             a = ' '
@@ -117,7 +117,7 @@ for w,f in enumerate(files):
         if (w == 1):
             xmin = min(Nodal[:,0])
             xmax = max(Nodal[:,0]) 
-            ymin = max(Nodal[:,1]) - 1
+            ymin = min(Nodal[:,1])
             ymax = max(Nodal[:,1]) + 0.5 
         
         for i,e in enumerate(Elem):
@@ -131,7 +131,10 @@ for w,f in enumerate(files):
             if(w == 0):
                 ref.update({polygon:rho[i]})
             
-            diff.append(100.0* ( float(rho[i]) - float(ref[polygon])) / float(ref[polygon])  )        
+            diff.append(100.0* ( float(rho[i]) - float(ref[polygon])) / float(ref[polygon])  )
+        diff = np.asarray(diff).astype(float)
+        dd.append([min(diff), max(diff)])
+
 
 
 # # Choose mm (values min and max) based on your data
@@ -139,8 +142,9 @@ for w,f in enumerate(files):
 # In[18]:
 
 
+print('oi')
 fig, ax = plt.subplots(1, 1, figsize = fig_size)
-plt.plot(diff)
+#plt.plot(diff)
 ax.set_ylabel("[$\%$]",size=text_size)
 ax.set_xlabel("Elements",size=text_size)
 a=np.asarray(diff)
@@ -152,7 +156,7 @@ print("Std: ",a[a<0].std(), a[a>0].std())
 
 
 ref = {}
-mm = [-20, 20]
+mm = [-100, 100]
 bounds = np.linspace(mm[0], mm[1], cmap.N)
 norm = mpl.colors.BoundaryNorm(bounds, cmap.N)
 for w,f in enumerate(files):
@@ -196,7 +200,6 @@ for w,f in enumerate(files):
                     f = line.split()
                 elif(i < int(n[1])+nnodal+14):
                     dif = line.split()
-                    print(w,i)
                 elif(i < int(n[1])+nnodal+16):
                     f = line.split()
                 elif(i < int(n[1])+nnodal+17):
@@ -218,15 +221,16 @@ for w,f in enumerate(files):
             if(w == 0):
                 ref.update({polygon:rho[i]})
             
-            indexC = float(rho[i]) - float(ref[polygon])   
-            indice = int( (indexC - mm[0])*len(cmaplist) / (mm[1] - mm[0])) - 1
+            #indexC = float(rho[i]) - float(ref[polygon])   
+            indexC = (100.0* ( float(rho[i]) - float(ref[polygon])) / float(ref[polygon])  )
+            indice = int( (indexC - mm[0])*(len(cmaplist) - 1) / (mm[1] - mm[0]) )
             
-            if (indice >= 256):
+            if (indice > 255):
                 indice = 255;
             elif(indice < 0):
                 indice = 0
-            else:
-                plotC = cmaplist[ int( (indexC - mm[0])*len(cmaplist)                                       / (mm[1] - mm[0])) - 1]  
+            
+            plotC = cmaplist[indice]  
                         
             codes = [Path.MOVETO,Path.LINETO,Path.LINETO,Path.CLOSEPOLY]#patches.append(polygon)
             path = Path(polygon,codes)
@@ -236,14 +240,19 @@ for w,f in enumerate(files):
 
         ax2 = fig.add_axes(axes2)
         #ax2.set_ylabel('Resistivity [$\Omega m$]',size=text_size)
-        ax2.set_title('$ (\\rho - \\rho_0) /\\rho_0 \, [\%]$',size=text_size)
+        #ax2.set_title('$ (\\rho - \\rho_0) /\\rho_0 \, [\%]$',size=text_size)
         cb = mpl.colorbar.ColorbarBase(ax2, cmap=cmap, norm=norm, spacing='proportional', ticks=[np.linspace(np.around(mm[0]),np.around(mm[1]),5)], boundaries=bounds)
        
-        fname = path_d + 'pngs/dif/' + re.sub(path_d,' ',data[w])[6:-3] + 'png'
-        title = re.sub(path_d,' ',fname)[6:-4]
-        ax.set_title(title[9:11] + '/' + title[12:14] + '/' + title[4:8] + ' ' + title[15:17] + 'h',fontsize=16, color='gray')
+        fname = path_d + 'pngs/dif/' + re.sub(path_d,' ',data[w])[6:-4] + 'png'
+        print(fname)
+        title = re.sub(path_d,' ',fname)[10:-4]
+        print(title)
+        #ax.set_title(title[9:11] + '/' + title[12:14] + '/' + title[4:8] + ' ' + title[15:17] + 'h',fontsize=16, color='gray')
+
+        #ax.legend(["[min max] = " + str(np.round(dd[w]))])
+        ax.text(xmin+1,ymax-1,"[min max] = " + str(np.round(dd[w])))
         plt.savefig(fname, dpi=None, facecolor='w', edgecolor='w', orientation='portrait', papertype=None, format=None, transparent=False, bbox_inches=None, pad_inches=0.1, frameon=None, metadata=None)
-        plt.show()
+        #plt.show()
         plt.close(fig)
         plt.clf()
         plt.cla()
